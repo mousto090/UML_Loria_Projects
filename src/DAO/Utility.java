@@ -5,17 +5,23 @@
  */
 package DAO;
 
+import BibalExceptions.ChampsControlExceptions;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
  * @author Jalloh
  */
-public final class DAOUtility {
+public final class Utility {
+    
+    public static final String DATE_FORMAT = "yyyy-mm-dd";
     /**
      * Fermeture du ResultSet
      * @param resultSet 
@@ -57,13 +63,13 @@ public final class DAOUtility {
         }
     }
     /**
-     * Fermeture du Statement et du ResultSet
+     * 
      * @param statement
-     * @param connexion 
+     * @param resultSet 
      */
-    public static void closeStatementResultSet( Statement statement, ResultSet connexion ) {
+    public static void closeStatementResultSet( Statement statement, ResultSet resultSet ) {
         closeStatement(statement );
-        closeResultSet(connexion );
+        closeResultSet(resultSet );
     }
     
     public static void closeConnectionStatementResultSet(Connection connexion, Statement statement, ResultSet resultSet ) {
@@ -87,4 +93,21 @@ public final class DAOUtility {
         return preparedStatement;
     }
     
+    
+    public static Date formatDate(String dateNais) throws ChampsControlExceptions {
+
+        if (null != dateNais) {
+            try {
+                return new SimpleDateFormat("dd/mm/yyyy").parse(dateNais);
+            } catch (ParseException e) {
+                throw new ChampsControlExceptions("Date non valide ", e.getCause());
+            }
+        } else {
+            throw new ChampsControlExceptions("Merci d'indiquer une date ");
+        }
+    }
+    
+    public static String dateToStr(Date date){
+        return new SimpleDateFormat(DATE_FORMAT).format(date);
+    }
 }

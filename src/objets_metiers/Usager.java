@@ -1,5 +1,6 @@
 package objets_metiers;
 
+import BibalExceptions.ChampsControlExceptions;
 import java.util.Date;
 import java.util.Vector;
 
@@ -17,17 +18,24 @@ public class Usager {
 
     public Usager() {
     }
-
-    public Usager(int id, String nom, String prenom, Date dateNais,
+    
+    public Usager(String nom, String prenom, Date dateNais,
             String sexe, String adresse, String tel) {
-        this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.dateNais = dateNais;
         this.sexe = sexe;
         this.adresse = adresse;
         this.tel = tel;
+        
     }
+    public Usager(int id, String nom, String prenom, Date dateNais,
+            String sexe, String adresse, String tel) {
+        this(nom, prenom, dateNais, sexe, adresse, tel);
+        this.id = id;
+        
+    }
+    
 
     public Usager(Usager usager) {
         this(usager.id, usager.nom, usager.prenom, usager.dateNais,
@@ -46,7 +54,15 @@ public class Usager {
         return this.nom;
     }
 
-    public void setNom(String nom) {
+    public void setNom(String nom) throws ChampsControlExceptions{
+        if (null != nom) {
+            if (nom.length() < 3) {
+                throw new ChampsControlExceptions("Le nom de l'usager doit contenir "
+                        + "au moins 3 caractères");
+            }
+        } else {
+            throw new ChampsControlExceptions("Merci de saisir le nom de l'usager");
+        }
         this.nom = nom;
     }
 
@@ -54,7 +70,15 @@ public class Usager {
         return this.prenom;
     }
 
-    public void setPrenom(String prenom) {
+    public void setPrenom(String prenom) throws ChampsControlExceptions {
+         if (null != prenom) {
+            if (prenom.length() < 3) {
+                throw new ChampsControlExceptions("Le prénom de l'usager doit contenir "
+                        + "au moins 3 caractères");
+            }
+        } else {
+            throw new ChampsControlExceptions("Merci de saisir le prénom de l'usager");
+        }
         this.prenom = prenom;
     }
 
@@ -70,7 +94,10 @@ public class Usager {
         return this.sexe;
     }
 
-    public void setSexe(String sexe) {
+    public void setSexe(String sexe) throws ChampsControlExceptions {
+        if (null == sexe) {
+            throw new ChampsControlExceptions("Merci de préciser le sexe de l'usager");
+        }
         this.sexe = sexe;
     }
 
@@ -78,7 +105,15 @@ public class Usager {
         return this.adresse;
     }
 
-    public void setAdresse(String adresse) {
+    public void setAdresse(String adresse) throws ChampsControlExceptions {
+        if (null != adresse) {
+            if (adresse.length() < 10) {
+                throw new ChampsControlExceptions("L'adresse doit contenir "
+                        + "au moins 10 caractères" + adresse);
+            }
+        } else {
+            throw new ChampsControlExceptions("Merci de renseigner l'adresse de l'usager");
+        }
         this.adresse = adresse;
     }
 
@@ -86,7 +121,15 @@ public class Usager {
         return this.tel;
     }
 
-    public void setTel(String tel) {
+    public void setTel(String tel) throws ChampsControlExceptions {
+        if (null != tel) {
+            if (tel.length() < 10) {
+                throw new ChampsControlExceptions("Le numero de téléphone doit se composer \n"
+                        + "au moins de 10 chiffres");
+            }
+        } else {
+            throw new ChampsControlExceptions("Merci de saisir un numéro de téléphone ");
+        }
         this.tel = tel;
     }
 
