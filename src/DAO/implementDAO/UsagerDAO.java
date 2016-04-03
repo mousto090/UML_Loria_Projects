@@ -22,6 +22,7 @@ public class UsagerDAO extends DAO<Usager> {
     private static final String SQL_DELETE_BY_ID = "DELETE FROM usager WHERE id = ? ";
     private static final String SQL_SELECT = "SELECT * FROM usager ORDER BY id";
     private static final String SQL_SELECT_BY_ID = "SELECT * FROM usager WHERE id = ?";
+    private static final String SQL_SELECT_BY_NOM = "SELECT * FROM usager WHERE Nom = ?";
     private static final String SQL_UPDATE = "UPDATE usager "
             + " SET Nom = ?, Prenom = ?, DateNais = ?, Sexe = ?, Adresse = ?,Tel = ? "
             + "WHERE id = ?";
@@ -98,7 +99,7 @@ public class UsagerDAO extends DAO<Usager> {
     }
 
     public ArrayList<Usager> find(String nom) {
-        return find(SQL_SELECT_BY_ID, nom);
+        return find(SQL_SELECT_BY_NOM, nom);
     }
 
     private ArrayList<Usager> find(String sql, Object... objets) throws DAOExceptions {
@@ -116,6 +117,10 @@ public class UsagerDAO extends DAO<Usager> {
             throw new DAOExceptions("Aucun enregistrement trouvé " + e.getMessage());
         } finally {
             closeStatementResultSet(preparedStatement, resultSet);
+        }
+        
+        if(listUsagers.isEmpty()){
+            throw new DAOExceptions("Aucun enregistrement trouvé ");
         }
         return listUsagers;
     }
@@ -136,5 +141,4 @@ public class UsagerDAO extends DAO<Usager> {
         }
         return usager;
     }
-
 }

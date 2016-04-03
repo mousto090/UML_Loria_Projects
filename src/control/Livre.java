@@ -1,6 +1,6 @@
 package control;
 
-public class Livre extends Oeuvre {
+public class Livre extends OeuvreControl {
 	private int lendingLivre = 10;
 
 	public int getLending() {

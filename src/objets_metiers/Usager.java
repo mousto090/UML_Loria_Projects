@@ -46,7 +46,10 @@ public class Usager {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(int id)  throws ChampsControlExceptions {
+        if(id <= 0){
+            throw new ChampsControlExceptions("Identifiant Usager non valide !");
+        }
         this.id = id;
     }
 

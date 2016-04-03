@@ -14,11 +14,11 @@ public class UsagerControl {
 
     public void ajouter(String nom, String prenom, Date dateNais, String sexe,
             String adresse, String tel) throws ChampsControlExceptions {
-        
+
         try {
             Usager usager = new Usager();
             UsagerDAO usagerDao = new UsagerDAO(DBConnection.getConnection());
-            
+
             usager.setNom(nom);
             usager.setPrenom(prenom);
             usager.setDateNais(dateNais);
@@ -34,38 +34,47 @@ public class UsagerControl {
             throw new DAOConfigurationException(e.getMessage());
         }
     }
-    
-    public void ajouter(Usager usager) throws ChampsControlExceptions{
-        ajouter(usager.getNom(), usager.getPrenom(), usager.getDateNais(),
-                usager.getSexe(), usager.getAdresse(), usager.getTel());
-    }
 
-    public void modifier(Usager usager) throws DAOExceptions{
+    public void modifier(int id, String nom, String prenom, Date dateNais, String sexe,
+            String adresse, String tel) throws ChampsControlExceptions {
+
         try {
+            Usager usager = new Usager();
             UsagerDAO usagerDao = new UsagerDAO(DBConnection.getConnection());
+            
+            usager.setId(id);
+            usager.setNom(nom);
+            usager.setPrenom(prenom);
+            usager.setDateNais(dateNais);
+            usager.setSexe(sexe);
+            usager.setAdresse(adresse);
+            usager.setTel(tel);
+
             usagerDao.update(usager);
+
+        } catch (ChampsControlExceptions e) {
+            throw new ChampsControlExceptions(e.getMessage());
         } catch (SQLException e) {
-            throw new DAOExceptions(getClass().getName() + e.getMessage());
+            throw new DAOConfigurationException(e.getMessage());
         }
     }
-    
-   
-    public Usager find(int id) throws DAOExceptions{
+
+    public Usager find(int id) throws DAOExceptions {
         Usager usager = null;
         try {
             UsagerDAO usagerDao = new UsagerDAO(DBConnection.getConnection());
-            usager  = usagerDao.find(id);
+            usager = usagerDao.find(id);
         } catch (SQLException e) {
             throw new DAOExceptions(getClass().getName() + e.getMessage());
         }
         return usager;
     }
-    
-    public ArrayList<Usager> find(String nom) throws DAOExceptions{
+
+    public ArrayList<Usager> find(String nom) throws DAOExceptions {
         ArrayList<Usager> usagers = null;
         try {
             UsagerDAO usagerDao = new UsagerDAO(DBConnection.getConnection());
-            usagers  = usagerDao.find(nom);
+            usagers = usagerDao.find(nom);
         } catch (SQLException e) {
             throw new DAOExceptions(getClass().getName() + e.getMessage());
         }

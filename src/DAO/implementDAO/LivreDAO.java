@@ -1,13 +1,11 @@
 package DAO.implementDAO;
 
+import java.sql.Connection;
+
 public class LivreDAO extends OeuvreDAO {
-	private int lendingLivre = 10;
 
-	public int getLending() {
-		throw new UnsupportedOperationException();
-	}
+    public LivreDAO(Connection connection) {
+        super(connection);
+    }
 
-	public void setLending(int lending) {
-		throw new UnsupportedOperationException();
-	}
 }

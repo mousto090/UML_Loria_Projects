@@ -1,13 +1,11 @@
 package DAO.implementDAO;
 
+import java.sql.Connection;
+
 public class MagazineDAO extends OeuvreDAO {
-	private int lendingMagazine = 30;
 
-	public int getLending() {
-		throw new UnsupportedOperationException();
-	}
+    public MagazineDAO(Connection connection) {
+        super(connection);
+    }
 
-	public void setLending(int lending) {
-		throw new UnsupportedOperationException();
-	}
 }
